@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="google" content="notranslate" />
+        <link rel="stylesheet" href="/static/css/wrap.css" />
+        <link rel="stylesheet" href="/static/css/all.css" />
+        <title>SQLSandbox</title>
+    </head>
+    <body>
+        <div class="upload-database">
+            <input type="file" id="fileInput" hidden />
+            <input
+                type="button"
+                value="Выбрать БД"
+                class="add-database"
+                id="add-database"
+                onclick="openFilePicker()"
+            />
+        </div>
+    </body>
+</html>
+<script src="/static/js/wrap.js"></script>

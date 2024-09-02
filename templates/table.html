@@ -1,0 +1,19 @@
+<table class="table" id="table">
+    <thead>
+        <tr>
+            {% for column_name in column_names %}
+            <th class="th-column-{{ loop.index }}">{{ column_name }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in records %}
+        <tr>
+            {% for row in record %}
+            <td class="column-{{ loop.index }}">{{ row }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<span id="table_name" hidden>{{ table }}</span>

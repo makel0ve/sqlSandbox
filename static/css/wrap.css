@@ -1,0 +1,28 @@
+:root {
+    --border-wrap: 1px solid #dddddd;
+    --font-size-wrap: 14px;
+    --height-wrap: 30px;
+    --border-radius-wrap: 0px 0 10px 10px;
+    --background-wrap: #bdbebd;
+}
+
+.add-database {
+    border: var(--border-wrap);
+    border-radius: var(--border-radius-wrap);
+    font-size: var(--font-size-wrap);
+    height: var(--height-wrap);
+    background: var(--background-wrap);
+
+    width: 100%;
+}
+
+.add-database:hover {
+    border: var(--border-wrap);
+    border-radius: var(--border-radius-wrap);
+    font-size: var(--font-size-wrap);
+    height: var(--height-wrap);
+    background: var(--background-wrap);
+    --background-wrap: #2c2c2c;
+
+    color: white;
+}

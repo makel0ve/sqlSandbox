@@ -1,0 +1,84 @@
+:root {
+    --border-elems: 1px solid #dddddd;
+    --font-size: 14px;
+    --background: #bdbebd;
+    --border-radius: 10px;
+    --display: flex;
+    --justify-content: space-evenly;
+    --flex-direction: row;
+    --width: 100%;
+    --height: 30px;
+}
+
+#editor-container {
+    width: var(--width);
+    height: var(--height);
+    --height: 200px;
+}
+
+.table {
+    border: var(--border-elems);
+    font-size: var(--font-size);
+    width: var(--width);
+    --font-size: 16px;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.table th {
+    background: var(--background);
+    border: var(--border-elems);
+    font-weight: bold;
+    padding: 5px;
+}
+
+.table td {
+    border: var(--border-elems);
+    padding: 5px;
+}
+
+.table tbody tr:nth-child(odd) {
+    background: var(--background);
+    --background: #fff;
+}
+
+.table tbody tr:nth-child(even) {
+    background: var(--background);
+    --background: #f7f7f7;
+}
+
+#myButton {
+    position: absolute;
+    z-index: 100;
+}
+
+.all-tables {
+    display: var(--display);
+    justify-content: var(--justify-content);
+    flex-direction: var(--flex-direction);
+    font-size: var(--font-size);
+    margin: 5px 0px 5px 0px;
+}
+
+.choices-table {
+    font-size: var(--font-size);
+    border: var(--border-elems);
+    background: var(--background);
+    border-radius: var(--border-radius);
+    height: var(--height);
+}
+
+.choices-table:hover {
+    font-size: var(--font-size);
+    border: var(--border-elems);
+    border-radius: var(--border-radius);
+    height: var(--height);
+    --border-elems: 2px solid #2c2c2c;
+}
+
+.upload-database {
+    display: var(--display);
+    justify-content: var(--justify-content);
+    flex-direction: var(--flex-direction);
+    --flex-direction: column;
+}

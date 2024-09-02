@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/static/css/wrap.css" />
+        <link rel="stylesheet" href="/static/css/main.css" />
+        <link rel="stylesheet" href="/static/css/all.css" />
+        <title>SQLSandbox</title>
+    </head>
+    <body onload="load_page()">
+        <div class="upload-database">
+            <input type="file" id="fileInput" hidden />
+            <input
+                type="button"
+                value="Выбрать БД"
+                class="add-database"
+                id="add-database"
+                onclick="openFilePicker()"
+            />
+        </div>
+        <div id="editor-container"></div>
+        <div id="main-div">
+            <div class="all-tables">
+                {% for table in tables %}
+                <input
+                    type="button"
+                    value="{{ table }}"
+                    class="choices-table"
+                />
+                {% endfor %}
+            </div>
+            <div id="table-div">
+                <table class="table" id="table">
+                    <thead>
+                        <tr>
+                            {% for column_name in column_names %}
+                            <th class="th-column-{{ loop.index }}">
+                                {{ column_name }}
+                            </th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in records %}
+                        <tr>
+                            {% for row in record %}
+                            <td class="column-{{ loop.index }}">{{ row }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
+<script src="/static/js/main.js"></script>
+<script src="/static/js/wrap.js"></script>
+<script src="/static/monaco-editor/min/vs/loader.js"></script>
