@@ -14,17 +14,7 @@ import db
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
-app.add_middleware(SessionMiddleware, secret_key="5730c186-0790-4b4d-8304-06882171f6b6")
 templates = Jinja2Templates(directory="templates")
-
-
-# @app.middleware("http")
-# async def some_middleware(request: Request, call_next):
-#     response = await call_next(request)
-#     session = request.cookies.get('session')
-#     if session:
-#         response.set_cookie(key='5730c186-0790-4b4d-8304-06882171f6b6', value=request.cookies.get('session'), httponly=True)
-#     return response
 
 
 @app.get('/', response_class=HTMLResponse)
