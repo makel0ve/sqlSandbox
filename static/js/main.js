@@ -49,6 +49,7 @@ async function load_page() {
             .addEventListener("click", () => sqlquery(editor.getValue()));
     });
     await create_but();
+    await create_sort_column();
 }
 
 async function create_but() {
@@ -83,6 +84,13 @@ async function style_but(btn) {
     });
 }
 
+async function create_sort_column() {
+    let headers = document.querySelectorAll('[class^="th-column-"]');
+    headers.forEach((header) => {
+        header.addEventListener("click", () => sort_column(header));
+    });
+}
+
 async function choice_table(btn) {
     await style_but(btn);
     const response = await fetch("/choice_table", {
@@ -98,6 +106,7 @@ async function choice_table(btn) {
     if (response.ok) {
         const html = await response.text();
         document.getElementById("table-div").innerHTML = html;
+        await create_sort_column();
     } else {
         console.log("Error: ", response.statusText);
     }
@@ -122,4 +131,23 @@ async function sqlquery(value) {
     } else {
         console.log("Error: ", response.statusText);
     }
+}
+
+async function sort_column(header) {
+    let index = Number(header.className.slice(10)) - 1;
+
+    let tbody = document.querySelector("tbody");
+    let rowsArray = Array.from(tbody.rows);
+
+    // if (!isNaN(Number(userInput))) {
+    // }
+
+    let compare = function (rowA, rowB) {
+        return rowA.cells[index].innerHTML > rowB.cells[index].innerHTML
+            ? 1
+            : -1;
+    };
+    rowsArray.sort(compare);
+
+    tbody.append(...rowsArray);
 }

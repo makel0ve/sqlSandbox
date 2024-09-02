@@ -40,9 +40,10 @@ async def get_table_data(text_query: str) -> Tuple[Sequence, list]:
     query_type = sqlparse.parse(text_query)[0].get_type()
     table_names = Parser(text_query).tables
     
-    column_names = await get_column(table_names[0]) if query_type == 'SELECT' else []
-    
+    column_names = await get_column(table_names[0])
     async with engine.connect() as conn:
+        await conn.execute(text("PRAGMA foreign_keys = ON;"))
+        await conn.commit()
         if query_type == "SELECT":
             result = await conn.execute(text(text_query))
             records = result.fetchall()
@@ -53,6 +54,8 @@ async def get_table_data(text_query: str) -> Tuple[Sequence, list]:
             async with conn.begin():
                 await conn.execute(text(text_query))
             
-            result = conn.execute(f"SELECT * FROM {table_names[0]}")
+
+            result = await conn.execute(text(f"SELECT * FROM {table_names[0]}"))
+            records = result.fetchall()
 
             return records, column_names, table_names[0]

@@ -10,7 +10,7 @@ async function upload_database(file) {
         const filename = encodeURIComponent(file.name);
         const lastDot = filename.lastIndexOf(".");
         const nameWithoutLastDot = filename.substring(0, lastDot);
-        window.location.href = `/${nameWithoutLastDot}`;
+        window.location.href = `/db/${nameWithoutLastDot}`;
     } else {
         console.log("Error: ", response.statusText);
     }

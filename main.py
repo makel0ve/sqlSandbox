@@ -1,5 +1,6 @@
 import urllib
 import urllib.parse
+import os
 from pathlib import Path
 
 import uvicorn
@@ -7,12 +8,18 @@ from fastapi import FastAPI, Request, File, UploadFile, Body
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, RedirectResponse
-from starlette.middleware.sessions import SessionMiddleware
+from contextlib import asynccontextmanager
 
 import db
 
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    yield
+    os.remove("uploaded_database.sqlite")
+
+
+app = FastAPI(lifespan=lifespan)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
@@ -22,7 +29,7 @@ async def root(request: Request):
     return templates.TemplateResponse("wrap.html", {"request": request})
 
 
-@app.get('/{filename}', response_class=HTMLResponse)
+@app.get("/db/{filename:path}/", response_class=HTMLResponse)
 async def show_db(request: Request):
     tables = await db.get_tables_name()
     records, column_names, table = await db.get_table_data(f"SELECT * FROM {tables[-1]}")
@@ -38,7 +45,7 @@ async def choice_db(request: Request, file: UploadFile = File()):
     filename = Path(file.filename).stem
     safe_filename = urllib.parse.quote(filename)
     
-    return RedirectResponse(f"/{safe_filename}", status_code=303) 
+    return RedirectResponse(f"/db/{safe_filename}", status_code=303) 
 
 
 @app.post("/choice_table", response_class=HTMLResponse)
