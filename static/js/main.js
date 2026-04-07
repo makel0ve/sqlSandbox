@@ -1,5 +1,5 @@
 async function load_page() {
-    require.config({ paths: { vs: "/static/monaco-editor/min/vs" } });
+    require.config({ paths: { vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs" } });
     require(["vs/editor/editor.main"], function () {
         var editor = monaco.editor.create(
             document.getElementById("editor-container"),
@@ -138,9 +138,6 @@ async function sort_column(header) {
 
     let tbody = document.querySelector("tbody");
     let rowsArray = Array.from(tbody.rows);
-
-    // if (!isNaN(Number(userInput))) {
-    // }
 
     let compare = function (rowA, rowB) {
         return rowA.cells[index].innerHTML > rowB.cells[index].innerHTML
